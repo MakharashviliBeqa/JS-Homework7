@@ -20,30 +20,32 @@ function isPersonalNumberValid() {
 
 function isEmailValid() {
     const value = email.value.trim();
-    const isOnlyDigits = /^\d{11}$/.test(value);
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (value === "") {
-        setError(personalNumber, "Email is required");
+        setError(email, "Email is required");
         return false;
-    } else if (!isOnlyDigits) {
-        setError(personalNumber, "Must be exactly 11 digits");
+    } else if (!emailPattern.test(value)) {
+        setError(email, "Please enter a valid email address");
         return false;
     } else {
-        setSuccess(personalNumber, "Valid Personal number");
-    } return true;
+        setSuccess(email, "Valid email");
+        return true;
+    }
 }
 
 function isPasswordValid() {
     const value = password.value.trim();
-    const isOnlyDigits = /^\d{11}$/.test(value);
+    const minLength = 8;
 
     if (value === "") {
-        setError(personalNumber, "Password is required");
+        setError(password, "Password is required");
         return false;
-    } else if (!isOnlyDigits) {
-        setError(personalNumber, "Must be exactly 11 digits");
+    } else if (value.length < minLength) {
+        setError(password, `Password must be at least ${minLength} characters long`);
         return false;
     } else {
-        setSuccess(personalNumber, "Valid Password");
-    } return true;
+        setSuccess(password, "Valid password");
+        return true;
+    }
 }
