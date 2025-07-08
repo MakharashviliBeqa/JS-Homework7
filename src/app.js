@@ -1,51 +1,30 @@
-const personalNumber = regForm.querySelector('#personalNumber');
-const email = regForm.querySelector('#email');
-const password = regForm.querySelector('#password');
+const regForm = document.querySelector('#regForm')
+const personalNumber = document.querySelector('#personalNumber')
+const password  = document.querySelector('#password')
+const email = document.querySelector('#email')
+const errorMessage = document.querySelector('#errorMessage')
 
-function isPersonalNumberValid() {
-    const value = personalNumber.value.trim();
-    const isOnlyDigits = /^\d{11}$/.test(value);
 
-    if (value === "") {
-        setError(personalNumber, "Personal number is required");
-        return false;
-    } else if (!isOnlyDigits) {
-        setError(personalNumber, "Must be exactly 11 digits");
-        return false;
-    } else {
-        setSuccess(personalNumber, "Valid personal number");
-        return true;
-    }
-}
+regForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+})
 
-function isEmailValid() {
-    const value = email.value.trim();
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const pn = personalNumber.value.trim();
+const isPNValid = /^\d{11}$/.test(pn);
 
-    if (value === "") {
-        setError(email, "Email is required");
-        return false;
-    } else if (!emailPattern.test(value)) {
-        setError(email, "Please enter a valid email address");
-        return false;
-    } else {
-        setSuccess(email, "Valid email");
-        return true;
-    }
-}
+const em = email.value.trim();
+const isEmailValid = em.endsWith("@gmail.com");
 
-function isPasswordValid() {
-    const value = password.value.trim();
-    const minLength = 8;
+const pw = password.value.trim();
+const isPWValid = pw.length >=8;
 
-    if (value === "") {
-        setError(password, "Password is required");
-        return false;
-    } else if (value.length < minLength) {
-        setError(password, `Password must be at least ${minLength} characters long`);
-        return false;
-    } else {
-        setSuccess(password, "Valid password");
-        return true;
-    }
+
+if (!isPNValid) {
+    errorMessage.textContent = "Personal number must be 11 digits!";
+} else if (!isEmailValid) {
+    errorMessage.textContent = "Email must end with @gmail.com!";
+} else if (!isPWValid) {
+    errorMessage.textContent = "Password must be at least 8 characters!";
+} else {
+    errorMessage.textContent = "All good!";
 }
